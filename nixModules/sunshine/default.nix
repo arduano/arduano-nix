@@ -1,15 +1,18 @@
 { config, lib, pkgs, ... }:
 
 with lib;
+let
+  cfg = config.services.arduano.sunshine;
+in
 {
   options = {
-    services.sunshine =
+    services.arduano.sunshine =
       {
         enable = mkEnableOption "sunshine";
 
         package = mkOption {
           type = types.package;
-          default = pkgs.arduano.sunshine_patched {
+          default = pkgs.arduano.sunshine_patched.override {
             cudaSupport = true;
             stdenv = pkgs.cudaPackages.backendStdenv;
           };

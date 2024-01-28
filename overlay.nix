@@ -1,3 +1,8 @@
-final: prev: {
-  arduano = final.callPackage ./default.nix { };
+{ ... }:
+{
+  nixpkgs.overlays = [
+    (final: prev: {
+      arduano = final.callPackage ./pkgs/default.nix { };
+    })
+  ];
 }

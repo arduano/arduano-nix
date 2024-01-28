@@ -22,6 +22,7 @@
 
       homeModules = _: {
         imports = [
+          ./homeModules
           overlay
         ];
       };

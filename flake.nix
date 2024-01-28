@@ -6,11 +6,11 @@
   # The output is your built and working system configuration
   outputs = { self, ... }@inputs:
     {
-      nixosModules = [{
+      nixosModules = _: {
         imports = [
           ./nixModules
           ./overlay.nix
         ];
-      }];
+      };
     };
 }

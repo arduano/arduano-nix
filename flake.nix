@@ -5,18 +5,27 @@
 
   # The output is your built and working system configuration
   outputs = { self, ... }@inputs:
+    let
+      overlay = {
+        nixpkgs.overlays = [
+          (import ./overlay.nix)
+        ];
+      };
+    in
     {
       nixosModules = _: {
         imports = [
           ./nixModules
-          ./overlay.nix
+          overlay
         ];
       };
 
       homeModules = _: {
         imports = [
-          ./overlay.nix
+          overlay
         ];
       };
+
+      overlay = import ./overlay.nix;
     };
 }

@@ -16,4 +16,6 @@
 
 {
   sunshine_patched = callPackage ./sunshine { };
+  wxwidgets_gtk3 = callPackage ./wxwidgets { };
+  p7zip-gui = callPackage ./p7zip-gui { };
 }

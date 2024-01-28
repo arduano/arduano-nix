@@ -12,5 +12,11 @@
           ./overlay.nix
         ];
       };
+
+      homeModules = _: {
+        imports = [
+          ./overlay.nix
+        ];
+      };
     };
 }

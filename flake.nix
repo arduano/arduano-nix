@@ -1,10 +1,17 @@
 {
   description = "Arduano's overrides";
 
-  inputs = { };
+  inputs = {
+    nixpkgs.url = "nixpkgs/nixos-unstable";
+
+    vscode-server = {
+      url = "github:nix-community/nixos-vscode-server";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
 
   # The output is your built and working system configuration
-  outputs = { self, ... }@inputs:
+  outputs = { self, vscode-server, ... }@inputs:
     let
       overlay = {
         nixpkgs.overlays = [
@@ -16,6 +23,7 @@
       nixosModules = _: {
         imports = [
           ./nixModules
+          vscode-server.nixosModules.default
           overlay
         ];
       };

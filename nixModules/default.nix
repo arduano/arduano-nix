@@ -2,5 +2,7 @@
   imports = [
     ./sunshine
     ./nix-channel
+    ./vscode
+    ./networking
   ];
 }

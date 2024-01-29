@@ -19,6 +19,9 @@ in
 
   config = mkIf cfg.enable {
     home.packages = [ cfg.package ];
+
+    arduano.fixTrayTarget = true;
+
     systemd.user.services.anydesk = {
       Unit = {
         Description = "Remote desktop tool";

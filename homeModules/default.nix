@@ -2,5 +2,6 @@
   imports = [
     ./anydesk
     ./shell
+    ./trayTargetFix
   ];
 }

@@ -25,6 +25,18 @@ let
     };
   };
 
+  varsInitFishPluginSrc = pkgs.runCommand "fish-vars-init" { } ''
+    mkdir -p $out/conf.d
+    cp ${./fish_variables.fish} $out/conf.d/fish_variables.fish
+  '';
+
+  varsInitFishPlugin = pkgs.fishPlugins.buildFishPlugin {
+    pname = "fish-vars-init";
+    version = "1.0.0";
+
+    src = varsInitFishPluginSrc;
+  };
+
   cfg = config.arduano.shell;
 in
 {
@@ -41,10 +53,6 @@ in
       shellConfig = mkIf cfg.enable {
         programs.fish = {
           enable = true;
-
-          interactiveShellInit = ''
-            set fish_greeting # Disable greeting
-          '';
         };
 
         home.packages = with pkgs; [
@@ -56,16 +64,8 @@ in
           fishPlugins.tide
           fishPlugins.bass
           anyNixShellFishPlugin
+          varsInitFishPlugin
         ];
-
-        home.activation = {
-          copyFishVars = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-            PATH=${pkgs.python3}/bin:$PATH
-            $DRY_RUN_CMD python ${./inject_fish_vars.py} ${
-              ./fish_variables
-            } ~/.config/fish/fish_variables
-          '';
-        };
       };
 
       guiConfig = mkIf cfg.enable-gui {

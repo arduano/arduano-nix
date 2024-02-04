@@ -3,5 +3,6 @@
     ./anydesk
     ./shell
     ./trayTargetFix
+    ./mangohud
   ];
 }
